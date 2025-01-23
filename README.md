@@ -54,3 +54,30 @@
  - тесты запускались только при изменении файлов с расширением *.go.
 
 В качестве ответа добавьте в шаблон с решением файл gitlab-ci.yml своего проекта или вставьте код в соответсвующее поле в шаблоне.
+
+--- 
+
+### Решение 3
+
+```yaml
+---
+stages:
+  - build
+  - test
+
+test:
+  stage: test
+  image: golang:1.17
+  only:
+    changes:
+      - '*.go'
+  script: 
+    - go test .
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+   - docker build .
+  allow_failure: true
+```
